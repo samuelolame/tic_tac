@@ -1,10 +1,12 @@
+//ignore_for_file: must_be_immutable
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 
 class Pagedejeux extends StatefulWidget {
- String player1;
- String player2;
-  Pagedejeux({super.key,  required this.player1, required this.player2});
+  String player1;
+  String player2;
+  Pagedejeux({super.key, required this.player1, required this.player2});
 
   @override
   State<Pagedejeux> createState() => _PagedejeuxState();
@@ -70,17 +72,17 @@ class _PagedejeuxState extends State<Pagedejeux> {
         AwesomeDialog(
           context: context,
           dialogType: DialogType.success,
-          animType: AnimType.rightSlide,
+          animType: AnimType.bottomSlide,
           btnOkText: "Jouer Encor",
           title: _winner == "X"
-              ? widget.player1 + "Won!"
+              ? "${widget.player1} vien de Gagner!"
               : _winner == "O"
-                  ? widget.player2 + "Won!"
-                  : "ce une revanger",
+                  ? "${widget.player2} vien de Gagner!"
+                  : "vous avait echoue",
           btnOkOnPress: () {
             _recomencerjeux();
           },
-        )..show();
+        ).show();
       }
     });
   }
@@ -98,12 +100,89 @@ class _PagedejeuxState extends State<Pagedejeux> {
               size: 25,
               color: Colors.black87,
             )),
+        centerTitle: true,
+        title: const Text(
+          "Salle de jeux",
+          style: TextStyle(
+              color: Colors.amber, fontSize: 29, fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          PopupMenuButton(
+              offset: Offset.zero,
+              iconColor: Colors.black87,
+              iconSize: 35,
+              itemBuilder: (_) => [
+                    PopupMenuItem(
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.developer_mode_rounded,
+                            color: Colors.purple[400],
+                            size: 30,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          const Text(
+                            "Developer",
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 28,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    PopupMenuItem(
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.feedback_outlined,
+                            color: Colors.green[400],
+                            size: 30,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          const Text(
+                            "FeedBack",
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 28,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    PopupMenuItem(
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.app_shortcut,
+                            color: Colors.blue[600],
+                            size: 30,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          const Text(
+                            "Other App",
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 28,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ]),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 50),
+            const SizedBox(height: 10),
             SizedBox(
               height: 120,
               child: Column(
@@ -120,8 +199,8 @@ class _PagedejeuxState extends State<Pagedejeux> {
                       ),
                       Text(
                         _currentPlayer == "X"
-                            ? "${widget.player1}($_currentPlayer)"
-                            : "${widget.player2}($_currentPlayer)",
+                            ? "${widget.player1} ($_currentPlayer)"
+                            : "${widget.player2} ($_currentPlayer)",
                         style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
@@ -137,13 +216,12 @@ class _PagedejeuxState extends State<Pagedejeux> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
             Container(
               decoration: BoxDecoration(
                 color: Colors.blueAccent,
                 borderRadius: BorderRadius.circular(5),
               ),
-              margin: const EdgeInsets.all(5),
+              margin: const EdgeInsets.all(10),
               child: GridView.builder(
                   itemCount: 9,
                   shrinkWrap: true,
